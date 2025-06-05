@@ -1,6 +1,5 @@
 package com.ecommerce.user.services;
 
-import com.ecom.common.exception.ApiException.*;
 import com.ecom.common.exception.ResourceNotFound;
 import com.ecommerce.user.mappers.UserMapper;
 import com.ecommerce.user.models.Users;
