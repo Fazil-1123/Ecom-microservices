@@ -1,6 +1,5 @@
 package com.ecommerce.user.dtos;
 
-import com.ecommerce.user.models.AddressDto;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
