@@ -4,19 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5ae8298-fabc-47f9-a177-56e09d984551" name="Changes" comment="Project restructure for unified view">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="b5ae8298-fabc-47f9-a177-56e09d984551" name="Changes" comment="chore(db): migrate user service from local Postgres to Postgres Atlas">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/dtos/UsersDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/dtos/UsersDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Users.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/repository/UsersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/repository/UsersRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/product/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +100,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.UserApplication">
+  <component name="RunManager" selected="Spring Boot.ProductApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Udemy-microservices" />
       <method v="2">
@@ -181,7 +171,7 @@
       <workItem from="1748944671527" duration="5069000" />
       <workItem from="1749055027721" duration="1781000" />
       <workItem from="1749141027103" duration="273000" />
-      <workItem from="1749141337998" duration="10640000" />
+      <workItem from="1749141337998" duration="12093000" />
     </task>
     <task id="LOCAL-00001" summary="Project restructure for unified view">
       <option name="closed" value="true" />
@@ -191,7 +181,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749142161314</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="chore(db): migrate user service from local Postgres to Postgres Atlas">
+      <option name="closed" value="true" />
+      <created>1749219171852</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1749219171852</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +200,8 @@
       <path value="$PROJECT_DIR$/ecom-monolith" />
     </ignored-roots>
     <MESSAGE value="Project restructure for unified view" />
-    <option name="LAST_COMMIT_MESSAGE" value="Project restructure for unified view" />
+    <MESSAGE value="chore(db): migrate user service from local Postgres to Postgres Atlas" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore(db): migrate user service from local Postgres to Postgres Atlas" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
