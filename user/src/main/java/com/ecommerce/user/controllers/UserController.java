@@ -33,13 +33,13 @@ public class UserController {
     }
 
     @GetMapping("{id}")
-    public UsersDto findById(@PathVariable("id") Long id) {
+    public UsersDto findById(@PathVariable("id") String id) {
         logger.info("GET /api/users/{} - Fetching user by ID", id);
         return userService.findById(id);
     }
 
     @PutMapping("{id}")
-    public UsersDto updateUser(@PathVariable("id") Long id, @Valid @RequestBody UsersDto users) {
+    public UsersDto updateUser(@PathVariable("id") String id, @Valid @RequestBody UsersDto users) {
         logger.info("PUT /api/users/{} - Updating user", id);
         return userService.updateUser(id, users);
     }

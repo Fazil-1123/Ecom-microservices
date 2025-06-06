@@ -5,14 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5ae8298-fabc-47f9-a177-56e09d984551" name="Changes" comment="Project restructure for unified view">
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/product/src/main/resources/application.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/dtos/UsersDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/dtos/UsersDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/models/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/repository/UsersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/repository/UsersRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/user/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,11 +62,14 @@
   "keyToString": {
     "Maven.monolith [clean].executor": "Run",
     "Maven.monolith [install].executor": "Run",
+    "Maven.user [clean].executor": "Run",
+    "Maven.user [install].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
     "RequestMappingsPanelOrder1": "1",
     "RequestMappingsPanelWidth0": "75",
     "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Spring Boot.MonolithApplication.executor": "Run",
     "Spring Boot.OrderApplication.executor": "Run",
     "Spring Boot.ProductApplication.executor": "Run",
@@ -175,7 +181,7 @@
       <workItem from="1748944671527" duration="5069000" />
       <workItem from="1749055027721" duration="1781000" />
       <workItem from="1749141027103" duration="273000" />
-      <workItem from="1749141337998" duration="5302000" />
+      <workItem from="1749141337998" duration="10640000" />
     </task>
     <task id="LOCAL-00001" summary="Project restructure for unified view">
       <option name="closed" value="true" />
@@ -197,5 +203,54 @@
     </ignored-roots>
     <MESSAGE value="Project restructure for unified view" />
     <option name="LAST_COMMIT_MESSAGE" value="Project restructure for unified view" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java</url>
+          <line>31</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
+          <line>38</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
+          <line>40</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
+          <line>41</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java</url>
+          <line>29</line>
+          <properties class="com.ecommerce.user.controllers.UserController" method="addUser">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
+          <line>36</line>
+          <properties class="com.ecommerce.user.services.UserServiceImpl" method="addUser">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
