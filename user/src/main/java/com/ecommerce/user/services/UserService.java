@@ -10,7 +10,7 @@ public interface UserService {
 
     UsersDto addUser(UsersDto user);
 
-    UsersDto findById(Long id);
+    UsersDto findById(String id);
 
-    UsersDto updateUser(Long id, UsersDto users);
+    UsersDto updateUser(String id, UsersDto users);
 }

@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class UsersDto {
 
-    private Long id;
+    private String id;
 
     @NotBlank(message = "First name is required")
     @Size(max = 50)

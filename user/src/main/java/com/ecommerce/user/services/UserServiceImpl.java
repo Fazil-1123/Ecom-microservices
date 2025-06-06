@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UsersDto findById(Long id) {
+    public UsersDto findById(String id) {
         logger.info("Fetching user by ID={}", id);
         return usersRepository.findById(id)
                 .map(userMapper::toDto)
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UsersDto updateUser(Long id, UsersDto users) {
+    public UsersDto updateUser(String id, UsersDto users) {
         logger.info("Updating user ID={}", id);
         Users userUpdate = userMapper.toEntity(users);
 
