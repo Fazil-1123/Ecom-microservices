@@ -1,21 +1,25 @@
 spring:
   application:
     name: product-service
-  datasource:
-    url: ${DB_URL:jdbc:postgresql://ep-still-waterfall-a247ccu8-pooler.eu-central-1.aws.neon.tech/ecom_db_product?sslmode=require}
-    username: ${DB_USERNAME:ecom_user}
-    password: ${DB_PASSWORD:npg_YTQ39eokDngt}
+  profiles:
+    active: ${ACTIVE_PROFILE}
+  config:
+    import: optional:configserver:http://localhost:8181
 
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
 
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        default_schema: product_service
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, bus-refresh
+
 
 server:
   port: 8081
+
+

@@ -1,10 +1,23 @@
 spring:
   application:
-    name: user
-  data:
-    mongodb:
-      uri: mongodb+srv://ecom_user:ecom_pass123@cluster0.bfgmvla.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-      database: ecom_db_user
+    name: user-service
+  profiles:
+    active: ${ACTIVE_PROFILE}
+  config:
+    import: optional:configserver:http://localhost:8181
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, bus-refresh
+
 
 server:
   port: 8082
