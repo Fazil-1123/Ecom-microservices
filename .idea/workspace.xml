@@ -4,18 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5ae8298-fabc-47f9-a177-56e09d984551" name="Changes" comment="chore(db): migrate product service from local Postgres to Postgres neon cloud">
-      <change afterPath="$PROJECT_DIR$/order/src/main/resources/order-service-dev.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/order/src/main/resources/order-service-prod.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product/src/main/resources/product-service-dev.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/product/src/main/resources/product-service-prod.yaml" afterDir="false" />
+    <list default="true" id="b5ae8298-fabc-47f9-a177-56e09d984551" name="Changes" comment="chore(db): migrate configurations to spring cloud config server">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/order/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/product/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/product/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/resources/order-service-dev.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/resources/order-service-prod.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/src/main/resources/product-service-dev.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/src/main/resources/product-service-prod.yaml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -139,6 +135,9 @@
     <configuration name="OrderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ACTIVE_PROFILES" value="PROD" />
       <module name="order" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ecommerce.order.OrderApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -147,6 +146,9 @@
     <configuration name="ProductApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ACTIVE_PROFILES" value="PROD" />
       <module name="product" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ecommerce.product.ProductApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -155,6 +157,9 @@
     <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <option name="ACTIVE_PROFILES" value="PROD" />
       <module name="user" />
+      <selectedOptions>
+        <option name="environmentVariables" />
+      </selectedOptions>
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ecommerce.user.UserApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -213,7 +218,7 @@
       <workItem from="1749298934568" duration="3459000" />
       <workItem from="1749382790833" duration="146000" />
       <workItem from="1749385603200" duration="1216000" />
-      <workItem from="1749462711299" duration="7189000" />
+      <workItem from="1749462711299" duration="10566000" />
     </task>
     <task id="LOCAL-00001" summary="Project restructure for unified view">
       <option name="closed" value="true" />
@@ -239,11 +244,22 @@
       <option name="project" value="LOCAL" />
       <updated>1749220595069</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="chore(db): migrate configurations to spring cloud config server">
+      <option name="closed" value="true" />
+      <created>1749492675224</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1749492675224</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName=".env" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -252,7 +268,8 @@
     <MESSAGE value="Project restructure for unified view" />
     <MESSAGE value="chore(db): migrate user service from local Postgres to Postgres Atlas" />
     <MESSAGE value="chore(db): migrate product service from local Postgres to Postgres neon cloud" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(db): migrate product service from local Postgres to Postgres neon cloud" />
+    <MESSAGE value="chore(db): migrate configurations to spring cloud config server" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore(db): migrate configurations to spring cloud config server" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
