@@ -4,9 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b5ae8298-fabc-47f9-a177-56e09d984551" name="Changes" comment="chore(db): migrate user service from local Postgres to Postgres Atlas">
+    <list default="true" id="b5ae8298-fabc-47f9-a177-56e09d984551" name="Changes" comment="chore(db): migrate product service from local Postgres to Postgres neon cloud">
+      <change afterPath="$PROJECT_DIR$/order/src/main/resources/order-service-dev.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/order/src/main/resources/order-service-prod.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product/src/main/resources/product-service-dev.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/product/src/main/resources/product-service-prod.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/order/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/order/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/product/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/product/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/product/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/product/src/main/resources/application.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/user/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/user/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/user/src/main/resources/application.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,10 +37,10 @@
     &quot;accountId&quot;: &quot;cffb9edc-30e4-4108-a1a5-70465edb98d7&quot;
   }
 }</component>
-  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
-  <component name="KubernetesApiProvider"><![CDATA[{
-  "isMigrated": true
-}]]></component>
+  <component name="KubernetesApiPersistence">{}</component>
+  <component name="KubernetesApiProvider">{
+  &quot;isMigrated&quot;: true
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -50,8 +59,11 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Docker.docker-compose.yml: Compose Deployment.executor": "Run",
     "Maven.monolith [clean].executor": "Run",
     "Maven.monolith [install].executor": "Run",
+    "Maven.product [clean].executor": "Run",
+    "Maven.product [install].executor": "Run",
     "Maven.user [clean].executor": "Run",
     "Maven.user [install].executor": "Run",
     "RequestMappingsPanelOrder0": "0",
@@ -67,7 +79,7 @@
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/FAZIL/Documents/SpringBoot/Udemy-microservices",
+    "last_opened_file_path": "C:/Users/FAZIL/Documents/SpringBoot/Udemy-microservices/user/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -88,6 +100,9 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\FAZIL\Documents\SpringBoot\Udemy-microservices\user\src\main\resources" />
+      <recent name="C:\Users\FAZIL\Documents\SpringBoot\Udemy-microservices\product\src\main\resources" />
+      <recent name="C:\Users\FAZIL\Documents\SpringBoot\Udemy-microservices\order\src\main\resources" />
       <recent name="C:\Users\FAZIL\Documents\SpringBoot\Udemy-microservices" />
     </key>
   </component>
@@ -100,7 +115,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.ProductApplication">
+  <component name="RunManager" selected="Spring Boot.UserApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="Udemy-microservices" />
       <method v="2">
@@ -122,6 +137,7 @@
       </method>
     </configuration>
     <configuration name="OrderApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" value="PROD" />
       <module name="order" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ecommerce.order.OrderApplication" />
       <method v="2">
@@ -129,6 +145,7 @@
       </method>
     </configuration>
     <configuration name="ProductApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" value="PROD" />
       <module name="product" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ecommerce.product.ProductApplication" />
       <method v="2">
@@ -136,18 +153,39 @@
       </method>
     </configuration>
     <configuration name="UserApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ACTIVE_PROFILES" value="PROD" />
       <module name="user" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.ecommerce.user.UserApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
+      <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
       <item itemvalue="Spring Boot.MonolithApplication" />
       <item itemvalue="Spring Boot.OrderApplication" />
       <item itemvalue="Spring Boot.ProductApplication" />
       <item itemvalue="Spring Boot.UserApplication" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -171,7 +209,11 @@
       <workItem from="1748944671527" duration="5069000" />
       <workItem from="1749055027721" duration="1781000" />
       <workItem from="1749141027103" duration="273000" />
-      <workItem from="1749141337998" duration="12093000" />
+      <workItem from="1749141337998" duration="14129000" />
+      <workItem from="1749298934568" duration="3459000" />
+      <workItem from="1749382790833" duration="146000" />
+      <workItem from="1749385603200" duration="1216000" />
+      <workItem from="1749462711299" duration="7189000" />
     </task>
     <task id="LOCAL-00001" summary="Project restructure for unified view">
       <option name="closed" value="true" />
@@ -189,7 +231,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749219171852</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="chore(db): migrate product service from local Postgres to Postgres neon cloud">
+      <option name="closed" value="true" />
+      <created>1749220595069</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1749220595069</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -201,16 +251,12 @@
     </ignored-roots>
     <MESSAGE value="Project restructure for unified view" />
     <MESSAGE value="chore(db): migrate user service from local Postgres to Postgres Atlas" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore(db): migrate user service from local Postgres to Postgres Atlas" />
+    <MESSAGE value="chore(db): migrate product service from local Postgres to Postgres neon cloud" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore(db): migrate product service from local Postgres to Postgres neon cloud" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java</url>
-          <line>31</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
           <line>38</line>
@@ -230,15 +276,6 @@
           <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
           <line>41</line>
           <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/controllers/UserController.java</url>
-          <line>29</line>
-          <properties class="com.ecommerce.user.controllers.UserController" method="addUser">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/user/src/main/java/com/ecommerce/user/services/UserServiceImpl.java</url>
