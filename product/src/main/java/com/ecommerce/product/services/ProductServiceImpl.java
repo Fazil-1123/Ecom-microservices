@@ -77,11 +77,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto findById(Long id) {
         logger.info("Fetching product by ID: {}", id);
-        return productRepository.findById(id).map(productMapper::toDto)
-                .orElseThrow(() -> {
-                    logger.warn("Product not found: ID={}", id);
-                    return new ResourceNotFound("Resource not found with id: " + id);
-                });
+        return productRepository.findByIdAndActiveTrue(id).map(productMapper::toDto).orElseThrow(
+                () -> new ResourceNotFound("Product not found with id: %d".formatted(id))
+        );
+
     }
 
     @Override

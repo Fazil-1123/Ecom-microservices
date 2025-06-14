@@ -3,7 +3,6 @@ package com.ecommerce.order.controllers;
 import com.ecommerce.order.dtos.CartRequest;
 import com.ecommerce.order.dtos.CartResponse;
 import com.ecommerce.order.services.CartItemService;
-import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -28,7 +27,7 @@ public class CartController {
                                           @RequestBody CartRequest cartRequest) {
         logger.info("POST /api/cart - Adding item to cart for userId={}, productId={}", userId, cartRequest.getProductId());
 
-        if (!cartItemService.addCartItem(Long.valueOf(userId), cartRequest)) {
+        if (!cartItemService.addCartItem(userId, cartRequest)) {
             logger.warn("Out of stock for productId={} requested by userId={}", cartRequest.getProductId(), userId);
             return new ResponseEntity<>("Out of stock!!", HttpStatus.NOT_FOUND);
         }
@@ -42,7 +41,7 @@ public class CartController {
                                              @PathVariable("productId") Long productId) {
         logger.info("DELETE /api/cart/items/{} - Removing item for userId={}", productId, userId);
 
-        if (!cartItemService.removeItem(Long.valueOf(userId), productId)) {
+        if (!cartItemService.removeItem(userId, productId)) {
             logger.warn("Cart not found or item not present for userId={}, productId={}", userId, productId);
             return new ResponseEntity<>("Cart doesnt exist", HttpStatus.NOT_FOUND);
         }
@@ -54,6 +53,6 @@ public class CartController {
     @GetMapping
     public List<CartResponse> getCartItems(@RequestHeader("X-User-ID") String userId) {
         logger.info("GET /api/cart - Fetching cart items for userId={}", userId);
-        return cartItemService.getCartItems(Long.valueOf(userId));
+        return cartItemService.getCartItems(userId);
     }
 }

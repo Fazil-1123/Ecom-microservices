@@ -16,7 +16,10 @@ management:
   endpoints:
     web:
       exposure:
-        include: refresh, bus-refresh
+        include: refresh, bus-refresh, shutdown
+  endpoint:
+    shutdown:
+      access: unrestricted
 
 
 server:
