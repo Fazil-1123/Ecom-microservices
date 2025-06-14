@@ -1,6 +1,8 @@
 package com.ecommerce.order.services;
 
 import com.ecom.common.exception.ResourceNotFound;
+import com.ecommerce.order.clients.ProductServiceClient;
+import com.ecommerce.order.external.dtos.ProductDto;
 import com.ecommerce.order.mappers.OrderMapper;
 import com.ecommerce.order.models.CartItem;
 import com.ecommerce.order.repositories.CartItemRepository;
@@ -25,12 +27,14 @@ public class OrderServiceImpl implements OrderService {
     private final CartItemRepository cartItemRepository;
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
+    private final ProductServiceClient productServiceClient;
 
     public OrderServiceImpl(CartItemRepository cartItemRepository,
-                            OrderRepository orderRepository, OrderMapper orderMapper) {
+                            OrderRepository orderRepository, OrderMapper orderMapper, ProductServiceClient productServiceClient) {
         this.cartItemRepository = cartItemRepository;
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
+        this.productServiceClient = productServiceClient;
     }
 
     @Override
@@ -39,7 +43,8 @@ public class OrderServiceImpl implements OrderService {
 
         BigDecimal totalPrice = BigDecimal.ZERO;
 
-        List<CartItem> cartItems = cartItemRepository.findByUserId(Long.valueOf(userId)).stream().toList();
+        List<CartItem> cartItems = cartItemRepository.findByUserId(userId).stream().toList();
+
 
         if (cartItems.isEmpty()) {
             logger.warn("User with userId={} tried to place order with empty cart", userId);
@@ -48,7 +53,7 @@ public class OrderServiceImpl implements OrderService {
 
         List<OrderItem> orderItemList = new ArrayList<>();
         Order order = new Order();
-        order.setUserId(Long.valueOf(userId));
+        order.setUserId(userId);
         order.setStatus(OrderStatus.ORDERED);
 
         for (CartItem cartItem : cartItems) {
@@ -70,6 +75,11 @@ public class OrderServiceImpl implements OrderService {
 
         logger.info("Order placed successfully for userId={}, orderId={}, total={}",
                 userId, placedOrder.getId(), placedOrder.getTotalAmount());
+        for(OrderItem orderItem : order.getItems()){
+            ProductDto productToAdd = productServiceClient.getProductById(orderItem.getProductId()).get();
+            productToAdd.setStockQuantity(productToAdd.getStockQuantity()-orderItem.getQuantity());
+            productServiceClient.updateProductQuantity(productToAdd,orderItem.getProductId());
+        }
 
         return orderMapper.toDto(placedOrder);
     }

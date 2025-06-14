@@ -7,9 +7,9 @@ import com.ecommerce.order.dtos.CartResponse;
 import java.util.List;
 
 public interface CartItemService {
-    Boolean addCartItem(Long userId, CartRequest cartRequest);
+    Boolean addCartItem(String userId, CartRequest cartRequest);
 
-    boolean removeItem(Long userId, Long productId);
+    boolean removeItem(String userId, Long productId);
 
-    List<CartResponse> getCartItems(Long userId);
+    List<CartResponse> getCartItems(String userId);
 }
