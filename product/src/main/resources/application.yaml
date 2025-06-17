@@ -2,7 +2,7 @@ spring:
   application:
     name: product-service
   profiles:
-    active: ${ACTIVE_PROFILE}
+    active: ${ACTIVE_PROFILE:PROD}
   config:
     import: optional:configserver:http://localhost:8181
 
@@ -11,15 +11,6 @@ spring:
     port: 5672
     username: guest
     password: guest
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: refresh, bus-refresh, shutdown
-  endpoint:
-    shutdown:
-      access: unrestricted
 
 server:
   port: 8081
