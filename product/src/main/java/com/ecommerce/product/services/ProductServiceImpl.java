@@ -36,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDto updateProduct(Long id, ProductDto productDto) {
         logger.info("Updating product ID: {}", id);
-        return productRepository.findById(id).map(product -> {
+        return productRepository.findByIdAndActiveTrue(id).map(product -> {
             product.setName(productDto.getName());
             product.setDescription(productDto.getDescription());
             product.setPrice(productDto.getPrice());
