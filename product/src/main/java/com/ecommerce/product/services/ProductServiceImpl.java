@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public String deleteProduct(Long id) {
         logger.info("Deleting (deactivating) product ID: {}", id);
-        productRepository.findById(id).map(product -> {
+        productRepository.findByIdAndActiveTrue(id).map(product -> {
             product.setActive(false);
             Product saved = productRepository.save(product);
             logger.info("Product deactivated: ID={}", saved.getId());
