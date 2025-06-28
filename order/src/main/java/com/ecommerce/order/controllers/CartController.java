@@ -29,7 +29,7 @@ public class CartController {
 
         if (!cartItemService.addCartItem(userId, cartRequest)) {
             logger.warn("Out of stock for productId={} requested by userId={}", cartRequest.getProductId(), userId);
-            return new ResponseEntity<>("Out of stock!!", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Cannot process the order right now, Please try again later", HttpStatus.NOT_FOUND);
         }
 
         logger.info("Item added to cart successfully for userId={}", userId);

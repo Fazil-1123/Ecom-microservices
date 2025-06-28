@@ -10,6 +10,7 @@ import com.ecommerce.order.external.dtos.UsersDto;
 import com.ecommerce.order.mappers.CartMapper;
 import com.ecommerce.order.models.CartItem;
 import com.ecommerce.order.repositories.CartItemRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class CartItemServiceImpl implements CartItemService {
         this.userServiceClient = userServiceClient;
     }
 
+    @CircuitBreaker(name = "productService",fallbackMethod = "addToCartFallBack")
     @Override
     public Boolean addCartItem(String userId, CartRequest cartRequest) {
         UsersDto cartUser = userServiceClient.getUserById(userId).orElseThrow(()-> new ResourceNotFound("user does not exist"));
@@ -92,5 +94,10 @@ public class CartItemServiceImpl implements CartItemService {
 
         logger.info("Found {} cart items for userId={}", cartItems.size(), userId);
         return cartItems;
+    }
+
+    public Boolean addToCartFallBack(String userId, CartRequest cartRequest, Exception exception){
+        logger.error(exception.getMessage());
+        return false;
     }
 }

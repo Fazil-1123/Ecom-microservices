@@ -27,9 +27,6 @@ public class UserServiceClient {
         } catch (HttpClientErrorException.NotFound ex) {
             // 404 = product not found
             return Optional.empty();
-        } catch (HttpClientErrorException ex) {
-            // other HTTP errors (e.g. 500, 401)
-            throw new RuntimeException("Error calling user service: " + ex.getMessage(), ex);
         }
     }
 }
