@@ -11,6 +11,7 @@ import com.ecommerce.order.mappers.CartMapper;
 import com.ecommerce.order.models.CartItem;
 import com.ecommerce.order.repositories.CartItemRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,7 @@ public class CartItemServiceImpl implements CartItemService {
     private final CartMapper cartMapper;
     private final ProductServiceClient productServiceClient;
     private final UserServiceClient userServiceClient;
+    int count = 0;
 
     public CartItemServiceImpl(CartItemRepository cartItemRepository, CartMapper cartMapper, ProductServiceClient productServiceClient, UserServiceClient userServiceClient) {
         this.cartItemRepository = cartItemRepository;
@@ -35,9 +37,11 @@ public class CartItemServiceImpl implements CartItemService {
         this.userServiceClient = userServiceClient;
     }
 
-    @CircuitBreaker(name = "productService",fallbackMethod = "addToCartFallBack")
+//    @CircuitBreaker(name = "productService",fallbackMethod = "addToCartFallBack")
+    @Retry(name = "retryBreaker",fallbackMethod = "addToCartFallBack")
     @Override
     public Boolean addCartItem(String userId, CartRequest cartRequest) {
+        logger.info("attempt count: {}", count++);
         UsersDto cartUser = userServiceClient.getUserById(userId).orElseThrow(()-> new ResourceNotFound("user does not exist"));
         ProductDto productToAdd = productServiceClient.getProductById(cartRequest.getProductId()).orElseThrow(
                 ()-> new ResourceNotFound("Product with id: "+cartRequest.getProductId()+" does not exist")
