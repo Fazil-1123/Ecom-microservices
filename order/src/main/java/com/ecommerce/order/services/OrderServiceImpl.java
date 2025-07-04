@@ -13,11 +13,13 @@ import com.ecommerce.order.models.Order;
 import com.ecommerce.order.models.OrderItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -28,13 +30,15 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final ProductServiceClient productServiceClient;
+    private final RabbitTemplate rabbitTemplate;
 
     public OrderServiceImpl(CartItemRepository cartItemRepository,
-                            OrderRepository orderRepository, OrderMapper orderMapper, ProductServiceClient productServiceClient) {
+                            OrderRepository orderRepository, OrderMapper orderMapper, ProductServiceClient productServiceClient, RabbitTemplate rabbitTemplate) {
         this.cartItemRepository = cartItemRepository;
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.productServiceClient = productServiceClient;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     @Override
@@ -71,7 +75,9 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalAmount(totalPrice);
 
         Order placedOrder = orderRepository.save(order);
+        //clear cart
         cartItemRepository.deleteAll(cartItems);
+        rabbitTemplate.convertAndSend("order.exchange","order.tracking", Map.of("orderId",placedOrder.getId(),"status","CREATED"));
 
         logger.info("Order placed successfully for userId={}, orderId={}, total={}",
                 userId, placedOrder.getId(), placedOrder.getTotalAmount());
