@@ -1,19 +1,8 @@
 spring:
   application:
     name: notification
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: guest
-    password: guest
-
-rabbitmq:
-  exchange:
-    name: order.exchange
-  queue:
-    name: order.queue
-  routing:
-    key: order.tracking
+  config:
+    import: configserver:http://localhost:8181
 
 
 server:
