@@ -3,6 +3,7 @@ package com.ecommerce.order.services;
 import com.ecom.common.exception.ResourceNotFound;
 import com.ecommerce.order.clients.ProductServiceClient;
 import com.ecommerce.order.external.dtos.ProductDto;
+import com.ecommerce.order.mappers.OrderEventMapper;
 import com.ecommerce.order.mappers.OrderMapper;
 import com.ecommerce.order.models.CartItem;
 import com.ecommerce.order.repositories.CartItemRepository;
@@ -31,14 +32,16 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
     private final ProductServiceClient productServiceClient;
     private final RabbitTemplate rabbitTemplate;
+    private final OrderEventMapper orderEventMapper;
 
     public OrderServiceImpl(CartItemRepository cartItemRepository,
-                            OrderRepository orderRepository, OrderMapper orderMapper, ProductServiceClient productServiceClient, RabbitTemplate rabbitTemplate) {
+                            OrderRepository orderRepository, OrderMapper orderMapper, ProductServiceClient productServiceClient, RabbitTemplate rabbitTemplate, OrderEventMapper orderEventMapper) {
         this.cartItemRepository = cartItemRepository;
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.productServiceClient = productServiceClient;
         this.rabbitTemplate = rabbitTemplate;
+        this.orderEventMapper = orderEventMapper;
     }
 
     @Override
@@ -77,7 +80,7 @@ public class OrderServiceImpl implements OrderService {
         Order placedOrder = orderRepository.save(order);
         //clear cart
         cartItemRepository.deleteAll(cartItems);
-        rabbitTemplate.convertAndSend("order.exchange","order.tracking", Map.of("orderId",placedOrder.getId(),"status","CREATED"));
+        rabbitTemplate.convertAndSend("order.exchange","order.tracking",orderEventMapper.toDto(placedOrder));
 
         logger.info("Order placed successfully for userId={}, orderId={}, total={}",
                 userId, placedOrder.getId(), placedOrder.getTotalAmount());
