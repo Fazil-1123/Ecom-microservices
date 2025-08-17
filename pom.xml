@@ -15,5 +15,8 @@
         <module>product</module>
         <module>order</module>
         <module>notification</module>
+        <module>infra/eureka</module>
+        <module>infra/gateway</module>
+        <module>infra/ecom-config-server</module>
     </modules>
 </project>

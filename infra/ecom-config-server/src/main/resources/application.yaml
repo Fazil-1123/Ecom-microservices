@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: ecom-config-server
+
+  rabbitmq:
+    host: stingray.rmq.cloudamqp.com
+    port: 5672
+    username: wbjoilwl
+    password: 6iwcajT7YzjtcMFqZfE7GXYkx9ZGSI_B
+    virtual-host: wbjoilwl
+    connection-timeout: 30000
+
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Fazil-1123/Ecom-config-repo
+          username: ${GIT_USER}
+          password: ${GIT_TOKEN}
+server:
+  port: 8181

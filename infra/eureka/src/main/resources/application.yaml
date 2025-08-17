@@ -1,0 +1,13 @@
+server:
+  port: 8989
+
+eureka:
+  client:
+    # a standalone server should not register with itself or fetch the registry
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      # optional: leave empty or point to itself; it won't be used with the flags above
+      defaultZone: http://localhost:8989/eureka/
+  instance:
+    hostname: localhost

@@ -2,16 +2,6 @@ version: '3.8'
 
 services:
 
-#  rabbitmq:
-#    image: rabbitmq:4-management
-#    container_name: rabbitmq
-#    ports:
-#      - "5672:5672"
-#      - "15672:15672"
-#    environment:
-#      RABBITMQ_DEFAULT_USER: guest
-#      RABBITMQ_DEFAULT_PASS: guest
-
   db:
     image: postgres:15
     container_name: postgres_container
@@ -37,6 +27,17 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
 
+  redis:
+    image: redis:latest
+    command: ["redis-server","--appendonly","yes"]
+    ports:
+      - "6379:6379"          # remove this if you don’t need host access
+    volumes:
+      - redis_data:/data     # reuse your existing volume
+
 volumes:
   postgres_data_db:
   pgadmin_data:
+  redis_data:
+    external: true
+    name: a833ea9e29957235ebb3a20ce711ba7993143b00e68c50b0431d2507b6bf4b0f
