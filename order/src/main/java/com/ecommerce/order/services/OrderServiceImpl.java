@@ -14,7 +14,7 @@ import com.ecommerce.order.models.Order;
 import com.ecommerce.order.models.OrderItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,17 +31,17 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
     private final OrderMapper orderMapper;
     private final ProductServiceClient productServiceClient;
-    private final RabbitTemplate rabbitTemplate;
     private final OrderEventMapper orderEventMapper;
+    private final StreamBridge streamBridge;
 
     public OrderServiceImpl(CartItemRepository cartItemRepository,
-                            OrderRepository orderRepository, OrderMapper orderMapper, ProductServiceClient productServiceClient, RabbitTemplate rabbitTemplate, OrderEventMapper orderEventMapper) {
+                            OrderRepository orderRepository, OrderMapper orderMapper, ProductServiceClient productServiceClient, OrderEventMapper orderEventMapper, StreamBridge streamBridge) {
         this.cartItemRepository = cartItemRepository;
         this.orderRepository = orderRepository;
         this.orderMapper = orderMapper;
         this.productServiceClient = productServiceClient;
-        this.rabbitTemplate = rabbitTemplate;
         this.orderEventMapper = orderEventMapper;
+        this.streamBridge = streamBridge;
     }
 
     @Override
@@ -78,9 +78,11 @@ public class OrderServiceImpl implements OrderService {
         order.setTotalAmount(totalPrice);
 
         Order placedOrder = orderRepository.save(order);
+        logger.info("Sending order event: id={}, items={}", placedOrder.getId(),
+                placedOrder.getItems() == null ? 0 : placedOrder.getItems().size());
         //clear cart
         cartItemRepository.deleteAll(cartItems);
-        rabbitTemplate.convertAndSend("order.exchange","order.tracking",orderEventMapper.toDto(placedOrder));
+        streamBridge.send("placeOrder-out-0",orderMapper.toDto(placedOrder));
 
         logger.info("Order placed successfully for userId={}, orderId={}, total={}",
                 userId, placedOrder.getId(), placedOrder.getTotalAmount());
