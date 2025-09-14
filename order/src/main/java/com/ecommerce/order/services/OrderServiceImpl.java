@@ -2,6 +2,8 @@ package com.ecommerce.order.services;
 
 import com.ecom.common.exception.ResourceNotFound;
 import com.ecommerce.order.clients.ProductServiceClient;
+import com.ecommerce.order.dtos.ReserveStockRequest;
+import com.ecommerce.order.dtos.ReserveStockResponse;
 import com.ecommerce.order.external.dtos.ProductDto;
 import com.ecommerce.order.mappers.OrderEventMapper;
 import com.ecommerce.order.mappers.OrderMapper;
@@ -66,6 +68,7 @@ public class OrderServiceImpl implements OrderService {
         for (CartItem cartItem : cartItems) {
             OrderItem orderItem = new OrderItem();
             orderItem.setProductId(cartItem.getProductId());
+            reserveWithRetry(cartItem.getProductId(), cartItem.getQuantity());
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPrice(cartItem.getPrice());
             orderItem.setOrder(order);
@@ -86,13 +89,37 @@ public class OrderServiceImpl implements OrderService {
 
         logger.info("Order placed successfully for userId={}, orderId={}, total={}",
                 userId, placedOrder.getId(), placedOrder.getTotalAmount());
-        for(OrderItem orderItem : order.getItems()){
-            ProductDto productToAdd = productServiceClient.getProductById(orderItem.getProductId()).get();
-            logger.info("fetched product by thread {}, on version {}",Thread.currentThread(),productToAdd.getVersion());
-            productToAdd.setStockQuantity(productToAdd.getStockQuantity()-orderItem.getQuantity());
-            productServiceClient.updateProductQuantity(productToAdd,orderItem.getProductId());
-        }
+//        for(OrderItem orderItem : order.getItems()){
+//            ProductDto productToAdd = productServiceClient.getProductById(orderItem.getProductId()).get();
+//            logger.info("fetched product by thread {}, on version {}",Thread.currentThread(),productToAdd.getVersion());
+//            productToAdd.setStockQuantity(productToAdd.getStockQuantity()-orderItem.getQuantity());
+////            productServiceClient.updateProductQuantity(productToAdd,orderItem.getProductId());
+//        }
 
         return orderMapper.toDto(placedOrder);
+    }
+
+    private ReserveStockResponse reserveWithRetry(Long productId, int qty) {
+        int attempts = 0;
+        while (true) {
+            attempts++;
+            // 1) fetch latest version
+            ProductDto p = productServiceClient.getProductById(productId)
+                    .orElseThrow(() -> new ResourceNotFound("Product not found: " + productId));
+            try {
+                return productServiceClient.reserve(productId, new ReserveStockRequest(qty, p.getVersion()));
+            } catch (org.springframework.web.client.HttpClientErrorException e) {
+                int code = e.getStatusCode().value();
+                if (code == 422) { // insufficient stock
+                    throw e;        // fail fast (no order created)
+                }
+                if (code == 409 && attempts < 3) { // version conflict → retry with jitter
+                    try { Thread.sleep(java.util.concurrent.ThreadLocalRandom.current().nextInt(25, 100)); }
+                    catch (InterruptedException ie) { Thread.currentThread().interrupt(); }
+                    continue;
+                }
+                throw e; // other errors or retries exhausted
+            }
+        }
     }
 }

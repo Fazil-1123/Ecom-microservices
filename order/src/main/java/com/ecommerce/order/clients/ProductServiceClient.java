@@ -1,6 +1,9 @@
 package com.ecommerce.order.clients;
 
+import com.ecommerce.order.dtos.ReserveStockRequest;
+import com.ecommerce.order.dtos.ReserveStockResponse;
 import com.ecommerce.order.external.dtos.ProductDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
@@ -32,13 +35,21 @@ public class ProductServiceClient {
             throw new RuntimeException("Error calling product service: " + ex.getMessage(), ex);
         }
     }
-    public void updateProductQuantity(ProductDto productDto, Long id){
-        restClient.put()
-                .uri("http://product-service/api/products/" + id)
-                .body(productDto)
-                .retrieve()
-                .toBodilessEntity();
+
+    public ReserveStockResponse reserve(Long id, ReserveStockRequest body) {
+        try {
+            return restClient.post()
+                    .uri("http://product-service/api/products/{id}/reserve", id)
+                    .body(body)
+                    .retrieve()
+                    .body(ReserveStockResponse.class);
+        } catch (HttpClientErrorException ex) {
+            // Let OrderServiceImpl decide: 409 = retry, 422 = fail
+            if (ex.getStatusCode() == HttpStatus.CONFLICT || ex.getStatusCode() == HttpStatus.UNPROCESSABLE_ENTITY) {
+                throw ex;
+            }
+            throw new RuntimeException("Error calling product service: " + ex.getMessage(), ex);
+        }
 
     }
-
 }
