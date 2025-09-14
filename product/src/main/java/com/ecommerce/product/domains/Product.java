@@ -1,9 +1,6 @@
 package com.ecommerce.product.domains;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,6 +31,9 @@ public class Product {
     private String imageUrl;
 
     private Boolean active = true;
+
+    @Version
+    private int version;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

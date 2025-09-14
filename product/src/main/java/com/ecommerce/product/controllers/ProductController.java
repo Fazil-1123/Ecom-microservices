@@ -1,6 +1,8 @@
 package com.ecommerce.product.controllers;
 
 import com.ecommerce.product.dtos.ProductDto;
+import com.ecommerce.product.dtos.ReserveStockRequest;
+import com.ecommerce.product.dtos.ReserveStockResponse;
 import com.ecommerce.product.services.ProductService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -59,4 +61,13 @@ public class ProductController {
         logger.info("Product deleted. Response: {}", response);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PostMapping("{id}/reserve")
+    public ResponseEntity<ReserveStockResponse> reserve(
+            @PathVariable Long id,
+            @RequestBody @Valid ReserveStockRequest body
+    ) {
+        return ResponseEntity.ok(productService.reserve(id, body));
+    }
+
 }

@@ -88,6 +88,7 @@ public class OrderServiceImpl implements OrderService {
                 userId, placedOrder.getId(), placedOrder.getTotalAmount());
         for(OrderItem orderItem : order.getItems()){
             ProductDto productToAdd = productServiceClient.getProductById(orderItem.getProductId()).get();
+            logger.info("fetched product by thread {}, on version {}",Thread.currentThread(),productToAdd.getVersion());
             productToAdd.setStockQuantity(productToAdd.getStockQuantity()-orderItem.getQuantity());
             productServiceClient.updateProductQuantity(productToAdd,orderItem.getProductId());
         }

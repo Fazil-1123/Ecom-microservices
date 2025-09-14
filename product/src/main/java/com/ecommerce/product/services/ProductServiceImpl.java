@@ -3,11 +3,16 @@ package com.ecommerce.product.services;
 import com.ecom.common.exception.ResourceNotFound;
 import com.ecommerce.product.domains.Product;
 import com.ecommerce.product.dtos.ProductDto;
+import com.ecommerce.product.dtos.ReserveStockRequest;
+import com.ecommerce.product.dtos.ReserveStockResponse;
 import com.ecommerce.product.mappers.ProductMapper;
 import com.ecommerce.product.repositories.ProductRepository;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -40,7 +45,6 @@ public class ProductServiceImpl implements ProductService {
             product.setName(productDto.getName());
             product.setDescription(productDto.getDescription());
             product.setPrice(productDto.getPrice());
-            product.setStockQuantity(productDto.getStockQuantity());
             product.setCategory(productDto.getCategory());
             product.setImageUrl(productDto.getImageUrl());
             Product updatedProduct = productRepository.save(product);
@@ -88,5 +92,32 @@ public class ProductServiceImpl implements ProductService {
         logger.info("Searching products by keyword: {}", keyword);
         return productRepository.findByNameContainingIgnoreCaseAndActiveTrue(keyword).stream()
                 .map(productMapper::toDto).toList();
+    }
+
+    @Override
+    @Transactional
+    public ReserveStockResponse reserve(Long productId, ReserveStockRequest req) {
+        // 1) 404 if product missing / inactive
+        Product current = productRepository.findByIdAndActiveTrue(productId)
+                .orElseThrow(() -> new ResourceNotFound("Product not found with id: " + productId));
+
+        // 2) single atomic decrement (optimistic)
+        int rows = productRepository.decrementStockIfVersionMatch(productId, req.qty(), req.version());
+
+        if (rows == 0) {
+            // Distinguish version conflict vs insufficient stock for correct HTTP code
+            if (current.getStockQuantity() == null || current.getStockQuantity() < req.qty()) {
+                // 422 Unprocessable Entity
+                throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "INSUFFICIENT_STOCK");
+            }
+            // 409 Conflict
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "VERSION_CONFLICT");
+        }
+
+        // 3) Return fresh values
+        Product fresh = productRepository.findByIdAndActiveTrue(productId)
+                .orElseThrow(() -> new ResourceNotFound("Product not found with id: " + productId));
+
+        return new ReserveStockResponse(fresh.getId(), fresh.getStockQuantity(), fresh.getVersion());
     }
 }

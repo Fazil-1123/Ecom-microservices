@@ -30,4 +30,6 @@ public class ProductDto {
     private String category;
 
     private String imageUrl;
+
+    private Integer version;
 }
